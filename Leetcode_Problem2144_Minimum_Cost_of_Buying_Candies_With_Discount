@@ -1,0 +1,35 @@
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)a - *(int*)b );
+}
+
+int minimumCost(int* cost, int costSize){
+    if(costSize == 1)
+        return cost[0];
+    if(costSize == 2)
+        return (cost[0] + cost[1]);
+    qsort(cost,costSize,sizeof(int),cmpfunc);
+    int price = 0,i = costSize - 1;
+    for( ; i > 0 ; i = i - 3)
+        price += cost[i] + cost[i-1];
+    return (!i) ? (price+cost[0]) : price ;
+}
+
+
+-----------------------------------------------------------------------
+
+
+int cmpfunc (const void * a, const void * b) {
+   return ( *(int*)b - *(int*)a );   // descending order sorting
+}
+
+int minimumCost(int* cost, int costSize){
+   qsort(cost , costSize , sizeof(int) , cmpfunc) ;
+    int price = 0; ;
+    for(int i=1 ; i <= costSize ; i++)
+    {
+        if(!(i % 3)) 
+            continue ;
+        price += cost[i - 1] ;
+    }
+    return price ;
+}
